@@ -15,6 +15,12 @@ def checkNbLines(nbLines):
         return False
 
 # ----- CHECK FORMAT OF INPUT LINE ----- 
+        
+line_list = []
+for i in range(N):
+    line = input()
+    line_list.append(line)        
+
            
 def checkStringFormat(str):
     str_split = str.split();
