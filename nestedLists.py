@@ -36,24 +36,12 @@ def checkStringFormat(str):
             break;
     
     return is_match
-
-# Check if the user input is a well-formatted line
-def inputString(message):
-    while True:
-        try:
-            user_input_string = input(message)
-            if checkStringFormat(user_input_string) == False:
-                raise ValueError("ERROR")
-        except ValueError:
-            print("ERROR")
-            continue
-        else:
-            return user_input_string
-
-line_list = []
-for i in range(N):
-    line = inputString("Enter line number {}: ".format(i))
-    line_list.append(line)
+    
+def checkInputLine(input):
+    for item in range(len(input)):
+        if not checkStringFormat(input[item]):
+            return False
+    return True
 
 # ----- COMPUTE AVERAGE OF EACH OF THE N LINES and place result in list -----
 
