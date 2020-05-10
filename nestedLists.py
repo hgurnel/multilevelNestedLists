@@ -24,8 +24,8 @@ for i in range(N):
            
 def checkStringFormat(str):
     str_split = str.split();
-    # pattern = re.compile("\-\-[a-z][0-9]\=", flags=re.IGNORECASE)
-    pattern = re.compile("\-\-[a-z][0-9]\=(([+-]?[0-9]+\.?\d*)|(\[([^a-z]*)\]))|(\[\])", flags=re.IGNORECASE)
+    # pattern = re.compile("\-\-[a-z][+-]?[0-9]+\=(([+-]?[0-9]+\.?\d*)|(\[([^a-z]*)\])|(\[\]))", flags=re.IGNORECASE)
+    pattern = re.compile("\-\-[a-z]([+-]?[0-9]+\.?\d*)\=(([+-]?[0-9]+\.?\d*)|(\[([^a-z]*)\])|(\[\]))", flags=re.IGNORECASE)
     
     str_split_range = range(len(str_split))
     
