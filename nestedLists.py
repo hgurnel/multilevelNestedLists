@@ -53,7 +53,7 @@ if checkNbLines(N):
         
         # __IF__BEGIN        
         
-        if not checkInputLine(line_list):            
+        if not checkStringFormat(line_list[i]):            
             all_lines_average_list.append(["ERROR"])            
         else:
         
