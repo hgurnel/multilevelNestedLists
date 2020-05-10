@@ -45,91 +45,95 @@ def checkInputLine(input):
 
 all_lines_average_list = []
 
-# __FOR__BEGIN
+if checkNbLines(N) and checkInputLine(line_list):
 
-for i in range(len(line_list)):
+    # __FOR__BEGIN
     
-    # ----- EXTRACT THE VALUES FROM THE INPUT LINE & PLACE THEM IN A LIST -----
-    
-    # Remove blank spaces from input line number i
-    line_no_spaces = line_list[i].replace(" ", "")
-    
-    # Add -- at the end of the line to have the same string pattern around the 
-    # values of the line
-    line_no_spaces += "--"
-    
-    # Get the values, which are all between = and -- and place them in a list
-    def getValuesBetweenPattern(str, lst):
-        for i in re.findall('\=(.*?)\-\-', str, re.S):
-            lst.append(i)
-    
-    line_no_spaces_list = []        
-    getValuesBetweenPattern(line_no_spaces, line_no_spaces_list)
-    
-    # ----- TURN THE LIST (still in string format) INTO NESTED LISTS -----
-    
-    def getNestedLists(not_nested_lst, nested_lst):
-        for j in not_nested_lst:
-            nested_lst.append(ast.literal_eval(j))
-    
-    values_nested_lists = []
-    getNestedLists(line_no_spaces_list, values_nested_lists)
-    
-    # ----- COMPUTE AVERAGE OF EACH ELEMENT OF values_nested_lists -----
-    
-    def roundNumber(num):
-        if isinstance(num, int):
-            return num
-        else:
-            # If num is float, check its decimal part.
-            if(math.modf(num)[0] == 0):
-                return int(num)
-            else:
-                return round(num, 2)
-    
-    def averageOfOneNestedList(lst):
-        sum = 0
-        count = 0
+    for i in range(len(line_list)):
         
-        for i in lst:
-            if isinstance(i, list):
-                # Empty list: add nothing to sum but increase counter
-                if len(i) == 0:
-                    count += 1
+        # ----- EXTRACT THE VALUES FROM THE INPUT LINE & PLACE THEM IN A LIST -----
+        
+        # Remove blank spaces from input line number i
+        line_no_spaces = line_list[i].replace(" ", "")
+        
+        # Add -- at the end of the line to have the same string pattern around the 
+        # values of the line
+        line_no_spaces += "--"
+        
+        # Get the values, which are all between = and -- and place them in a list
+        def getValuesBetweenPattern(str, lst):
+            for i in re.findall('\=(.*?)\-\-', str, re.S):
+                lst.append(i)
+        
+        line_no_spaces_list = []        
+        getValuesBetweenPattern(line_no_spaces, line_no_spaces_list)
+        
+        # ----- TURN THE LIST (still in string format) INTO NESTED LISTS -----
+        
+        def getNestedLists(not_nested_lst, nested_lst):
+            for j in not_nested_lst:
+                nested_lst.append(ast.literal_eval(j))
+        
+        values_nested_lists = []
+        getNestedLists(line_no_spaces_list, values_nested_lists)
+        
+        # ----- COMPUTE AVERAGE OF EACH ELEMENT OF values_nested_lists -----
+        
+        def roundNumber(num):
+            if isinstance(num, int):
+                return num
+            else:
+                # If num is float, check its decimal part.
+                if(math.modf(num)[0] == 0):
+                    return int(num)
                 else:
-                    sum += averageOfOneNestedList(i)
-                    count += 1
-            else:
-                sum += i
-                count += 1
+                    return round(num, 2)
         
-        average = sum / count
-        # Round the average
-        return roundNumber(average)
-        
-    
-    def averageList(lst):
-        for i in values_nested_lists:
-            if isinstance(i, list):
-                if len(i) == 0:
-                    average_list.append(0)
+        def averageOfOneNestedList(lst):
+            sum = 0
+            count = 0
+            
+            for i in lst:
+                if isinstance(i, list):
+                    # Empty list: add nothing to sum but increase counter
+                    if len(i) == 0:
+                        count += 1
+                    else:
+                        sum += averageOfOneNestedList(i)
+                        count += 1
                 else:
-                    average_list.append(averageOfOneNestedList(i))
-            else:
-                # Round the number        
-                average_list.append(roundNumber(i))
+                    sum += i
+                    count += 1
+            
+            average = sum / count
+            # Round the average
+            return roundNumber(average)
+            
+        
+        def averageList(lst):
+            for i in values_nested_lists:
+                if isinstance(i, list):
+                    if len(i) == 0:
+                        average_list.append(0)
+                    else:
+                        average_list.append(averageOfOneNestedList(i))
+                else:
+                    # Round the number        
+                    average_list.append(roundNumber(i))
+        
+        average_list = []
+        averageList(average_list)
+        
+        all_lines_average_list.append(average_list)
     
-    average_list = []
-    averageList(average_list)
-    
-    all_lines_average_list.append(average_list)
+    # __FOR__END
+        
+    # ----- OUTPUT -----
 
-# __FOR__END
-
-# ----- OUTPUT -----
-
-# print("\nFINAL OUTPUT")       
-for i in range(len(line_list)):
-    for j in all_lines_average_list[i]:
-        print(j, end=" ")
-    print("\r")
+    # print("\nFINAL OUTPUT")       
+    for i in range(len(line_list)):
+        for j in all_lines_average_list[i]:
+            print(j, end=" ")
+        print("\r")        
+else:
+    print("ERROR")
