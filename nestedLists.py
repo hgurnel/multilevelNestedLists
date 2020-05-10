@@ -27,9 +27,7 @@ def checkStringFormat(str):
     # pattern = re.compile("\-\-[a-z][+-]?[0-9]+\=(([+-]?[0-9]+\.?\d*)|(\[([^a-z]*)\])|(\[\]))", flags=re.IGNORECASE)
     pattern = re.compile("\-\-[a-z]([+-]?[0-9]+\.?\d*)\=(([+-]?[0-9]+\.?\d*)|(\[([^a-z]*)\])|(\[\]))", flags=re.IGNORECASE)
     
-    str_split_range = range(len(str_split))
-    
-    for id in str_split_range:
+    for id in range(len(str_split)):
         match = pattern.match(str_split[id])
         is_match = bool(match)
         if is_match == False:
