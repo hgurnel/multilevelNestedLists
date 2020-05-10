@@ -5,20 +5,14 @@ import math
 
 # ----- CHECK INPUT NUMBER OF LINES (int) N > 0 -----
 
-def inputNumber(message):
-    while True:
-        try:
-           user_input_number = int(input(message)) 
-           if user_input_number <= 0:
-                raise ValueError("ERROR")
-        except ValueError:
-           print("ERROR")
-           continue
-        else:
-           return user_input_number 
-           break 
+N_str = input() 
+N = int(N_str)
 
-N = inputNumber("Enter the number of lines (N > 0): ") 
+def checkNbLines(nbLines):
+    if isinstance(nbLines, int) and nbLines > 0:
+        return True
+    else:
+        return False
 
 # ----- CHECK FORMAT OF INPUT LINE ----- 
            
